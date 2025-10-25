@@ -1,4 +1,5 @@
 
+
 import asyncio
 import logging
 from telegram import Update
@@ -29,7 +30,8 @@ def main() -> None:
             QUESTION: [
                 CallbackQueryHandler(question, pattern='^question_'),
                 CallbackQueryHandler(back_to_main_menu, pattern='^back_to_main_menu$'),
-                CallbackQueryHandler(landing_click, pattern='^landing_click$')
+                CallbackQueryHandler(landing_click, pattern='^landing_click$'),
+                CallbackQueryHandler(category, pattern='^category_')
             ],
         },
         fallbacks=[CommandHandler("start", start)],
