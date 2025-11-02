@@ -20,7 +20,7 @@ def build_question_menu(category_index: int) -> InlineKeyboardMarkup:
     data = load_faq_data()
     question_ids = data['categories'][category_index]['questions']
     buttons = [
-        [InlineKeyboardButton(data['questions'][str(q_id)]['question'], callback_data=f"question_{category_index}_{i}")]
+        [InlineKeyboardButton(data['questions'][str(q_id)]['short_title'], callback_data=f"question_{category_index}_{i}")]
         for i, q_id in enumerate(question_ids)
     ]
     buttons.append([InlineKeyboardButton("<< Назад", callback_data="back_to_main_menu")])
