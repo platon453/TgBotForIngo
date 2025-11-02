@@ -27,7 +27,10 @@ def main() -> None:
         entry_points=[CommandHandler("start", start)],
         states={
             AWAIT_MAIN_MENU: [MessageHandler(filters.Regex('^Главное меню$'), main_menu)],
-            CATEGORY: [CallbackQueryHandler(category, pattern='^category_')],
+            CATEGORY: [
+                CallbackQueryHandler(category, pattern='^category_'),
+                CallbackQueryHandler(landing_click, pattern='^landing_click$')
+            ],
             QUESTION: [
                 CallbackQueryHandler(question, pattern='^question_'),
                 CallbackQueryHandler(back_to_main_menu, pattern='^back_to_main_menu$'),

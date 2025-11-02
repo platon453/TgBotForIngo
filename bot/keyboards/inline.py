@@ -12,6 +12,7 @@ def build_main_menu() -> InlineKeyboardMarkup:
         [InlineKeyboardButton(category['name'], callback_data=f"category_{i}")]
         for i, category in enumerate(data['categories'])
     ]
+    buttons.append([InlineKeyboardButton("🌐 Перейти на лендинг", url=LANDING_URL, callback_data="landing_click")])
     return InlineKeyboardMarkup(buttons)
 
 def build_question_menu(category_index: int) -> InlineKeyboardMarkup:
@@ -29,6 +30,6 @@ def build_question_keyboard(category_index: int) -> InlineKeyboardMarkup:
     """Builds a keyboard with a back button and a landing page button."""
     buttons = [
         [InlineKeyboardButton("<< Назад", callback_data=f"category_{category_index}")],
-        [InlineKeyboardButton("Перейти на лендинг", url=LANDING_URL, callback_data="landing_click")]
+        [InlineKeyboardButton("🌐 Перейти на лендинг", url=LANDING_URL, callback_data="landing_click")]
     ]
     return InlineKeyboardMarkup(buttons)
