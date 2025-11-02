@@ -4,9 +4,8 @@ from telegram.ext import ContextTypes
 
 from bot.data.faq_data import load_faq_data
 from bot.keyboards.inline import build_question_menu, build_question_keyboard
-from bot.services.tracking import increment_counter
 
-CATEGORY, QUESTION = range(2)
+AWAIT_MAIN_MENU, CATEGORY, QUESTION = range(3)
 
 async def category(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Displays the questions for the selected category."""

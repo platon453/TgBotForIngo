@@ -8,7 +8,7 @@ from telegram.request import HTTPXRequest
 
 from config import TELEGRAM_TOKEN
 from bot.handlers.commands import start, main_menu
-from bot.handlers.conversation import CATEGORY, QUESTION, category, question, back_to_main_menu, landing_click
+from bot.handlers.conversation import AWAIT_MAIN_MENU, CATEGORY, QUESTION, category, question, back_to_main_menu, landing_click
 
 # Enable logging
 logging.basicConfig(
@@ -24,8 +24,9 @@ def main() -> None:
     application = Application.builder().token(TELEGRAM_TOKEN).defaults(defaults).request(request).build()
 
     conv_handler = ConversationHandler(
-        entry_points=[MessageHandler(filters.Regex('^Главное меню$'), main_menu)],
+        entry_points=[CommandHandler("start", start)],
         states={
+            AWAIT_MAIN_MENU: [MessageHandler(filters.Regex('^Главное меню$'), main_menu)],
             CATEGORY: [CallbackQueryHandler(category, pattern='^category_')],
             QUESTION: [
                 CallbackQueryHandler(question, pattern='^question_'),
@@ -37,8 +38,6 @@ def main() -> None:
         fallbacks=[CommandHandler("start", start)],
     )
 
-    # on different commands - answer in Telegram
-    application.add_handler(CommandHandler("start", start))
     application.add_handler(conv_handler)
 
     # Run the bot until the user presses Ctrl-C
