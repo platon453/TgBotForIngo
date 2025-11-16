@@ -1,39 +1,39 @@
-    sudo ./venv/bin/python -m bot.main
-/home/skittles/suse_files/Documents/GitHub/TGBOTDIRECTORY/TgBotForIngo/bot/main.py:26: PTBUserWarning: If 'per_message=False', 'CallbackQueryHandler' will not be tracked for every message. Read this FAQ entry to learn more about the per_* settings: https://github.com/python-telegram-bot/python-telegram-bot/wiki/Frequently-Asked-Questions#what-do-the-per_-settings-in-conversationhandler-do.
-  conv_handler = ConversationHandler(
-2025-11-02 21:35:30,459 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8095688366:AAFxpRFHa_KxYSGLX5ipgE50uCTZRGsAkno/getMe "HTTP/1.1 200 OK"
-2025-11-02 21:35:30,518 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8095688366:AAFxpRFHa_KxYSGLX5ipgE50uCTZRGsAkno/deleteWebhook "HTTP/1.1 200 OK"
-2025-11-02 21:35:30,519 - telegram.ext.Application - INFO - Application started
-2025-11-02 21:35:31,747 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8095688366:AAFxpRFHa_KxYSGLX5ipgE50uCTZRGsAkno/getUpdates "HTTP/1.1 200 OK"
-2025-11-02 21:35:31,864 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8095688366:AAFxpRFHa_KxYSGLX5ipgE50uCTZRGsAkno/sendMessage "HTTP/1.1 200 OK"
-2025-11-02 21:35:32,916 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8095688366:AAFxpRFHa_KxYSGLX5ipgE50uCTZRGsAkno/getUpdates "HTTP/1.1 200 OK"
-2025-11-02 21:35:32,918 - telegram.ext.Application - ERROR - No error handlers are registered, logging exception.
+2025-11-16 16:17:12,803 - __main__ - INFO - VK Bot started!
+
+
+
 Traceback (most recent call last):
-  File "/home/skittles/suse_files/Documents/GitHub/TGBOTDIRECTORY/TgBotForIngo/venv/lib64/python3.13/site-packages/telegram/ext/_application.py", line 1182, in __create_task_callback
-    return await coroutine  # type: ignore[misc]
-           ^^^^^^^^^^^^^^^
-  File "/home/skittles/suse_files/Documents/GitHub/TGBOTDIRECTORY/TgBotForIngo/venv/lib64/python3.13/site-packages/telegram/ext/_handlers/basehandler.py", line 159, in handle_update
-    return await self.callback(update, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/skittles/suse_files/Documents/GitHub/TGBOTDIRECTORY/TgBotForIngo/bot/handlers/commands.py", line 25, in main_menu
-    reply_markup=build_main_menu()
-  File "/home/skittles/suse_files/Documents/GitHub/TGBOTDIRECTORY/TgBotForIngo/bot/keyboards/inline.py", line 10, in build_main_menu
-    data = load_faq_data()
-  File "/home/skittles/suse_files/Documents/GitHub/TGBOTDIRECTORY/TgBotForIngo/bot/data/faq_data.py", line 9, in load_faq_data
-    return json.load(f)
-           ~~~~~~~~~^^^
-  File "/usr/lib64/python3.13/json/__init__.py", line 293, in load
-    return loads(fp.read(),
-        cls=cls, object_hook=object_hook,
-        parse_float=parse_float, parse_int=parse_int,
-        parse_constant=parse_constant, object_pairs_hook=object_pairs_hook, **kw)
-  File "/usr/lib64/python3.13/json/__init__.py", line 346, in loads
-    return _default_decoder.decode(s)
-           ~~~~~~~~~~~~~~~~~~~~~~~^^^
-  File "/usr/lib64/python3.13/json/decoder.py", line 345, in decode
-    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
-               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib64/python3.13/json/decoder.py", line 361, in raw_decode
-    obj, end = self.scan_once(s, idx)
-               ~~~~~~~~~~~~~~^^^^^^^^
-json.decoder.JSONDecodeError: Expecting ',' delimiter: line 89 column 129 (char 4536)
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/skittles/suse_files/Documents/GitHub/TGBOTDIRECTORY/TgBotForIngo/bot/main.py", line 65, in <module>
+    main()
+    ~~~~^^
+  File "/home/skittles/suse_files/Documents/GitHub/TGBOTDIRECTORY/TgBotForIngo/bot/main.py", line 41, in main
+    handle_main_menu(vk, user_id, user_states)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/skittles/suse_files/Documents/GitHub/TGBOTDIRECTORY/TgBotForIngo/bot/vk_handlers.py", line 30, in handle_main_menu
+    send_message(
+    ~~~~~~~~~~~~^
+        vk,
+        ^^^
+    ...<2 lines>...
+        keyboard=build_main_menu_keyboard()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/skittles/suse_files/Documents/GitHub/TGBOTDIRECTORY/TgBotForIngo/bot/vk_handlers.py", line 10, in send_message
+    vk.messages.send(
+    ~~~~~~~~~~~~~~~~^
+        user_id=user_id,
+        ^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        keyboard=keyboard
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/skittles/suse_files/Documents/GitHub/TGBOTDIRECTORY/TgBotForIngo/venv/lib64/python3.13/site-packages/vk_api/vk_api.py", line 1043, in __call__
+    return self._vk.method(self._method, kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/skittles/suse_files/Documents/GitHub/TGBOTDIRECTORY/TgBotForIngo/venv/lib64/python3.13/site-packages/vk_api/vk_api.py", line 934, in method
+    raise error
+vk_api.exceptions.ApiError: [911] Keyboard format is invalid: button [4][0] has action type which is not compatible with setting colors
