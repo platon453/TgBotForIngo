@@ -1,2 +1,2 @@
-python-telegram-bot
+vk_api
 python-dotenv

@@ -3,5 +3,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
-LANDING_URL = os.getenv("LANDING_URL", "https://www.ingos.ru/ingostart/")
+VK_API_TOKEN = os.getenv("VK_API_TOKEN")
+VK_GROUP_ID = os.getenv("VK_GROUP_ID")
+LANDING_URL = os.getenv("LANDING_URL", "https://www.ingos.ru/internship/")
