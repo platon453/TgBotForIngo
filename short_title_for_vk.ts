@@ -1,0 +1,1 @@
+console.log("short_title_for_vk");
