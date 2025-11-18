@@ -1,9 +1,11 @@
-
 import json
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-
-from bot.data.faq_data import load_faq_data
 from config import LANDING_URL
+
+def load_faq_data() -> dict:
+    """Loads the FAQ data from faq_data.json in the project root."""
+    with open('faq_data.json', 'r', encoding='utf-8') as f:
+        return json.load(f)
 
 def build_main_menu() -> InlineKeyboardMarkup:
     """Builds the main menu keyboard."""
