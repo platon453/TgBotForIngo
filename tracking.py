@@ -1,4 +1,3 @@
-
 import os
 
 COUNTER_FILE = "landing_clicks.txt"
