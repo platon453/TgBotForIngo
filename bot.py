@@ -36,7 +36,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Sends a message with a welcome text and a main menu button, entering the conversation."""
     reply_keyboard = [["Главное меню"]]
     await update.message.reply_text(
-        "«Привет! Я Инга – твой помощник из Ингосстраха. Расскажу про стажировки, поделюсь полезными инсайтами и покажу, почему у нас классно.»",
+        "Привет! Я Инга — твой помощник из Ингосстраха. Расскажу про стажировки, поделюсь полезными инсайтами и покажу, почему у нас классно.",
         reply_markup=ReplyKeyboardMarkup(
             reply_keyboard, one_time_keyboard=True, resize_keyboard=True
         ),
