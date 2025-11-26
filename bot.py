@@ -19,7 +19,7 @@ from keyboards_and_data import (
     build_question_menu,
     build_question_keyboard,
     load_faq_data,
-    build_landing_button_only
+    build_fallback_keyboard
 )
 
 # Enable logging
@@ -107,7 +107,7 @@ async def unknown_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     )
     await update.message.reply_text(
         message_text,
-        reply_markup=build_landing_button_only()
+        reply_markup=build_fallback_keyboard()
     )
 
 # --- Main function ---
@@ -128,22 +128,19 @@ def main() -> None:
             ],
             QUESTION: [
                 CallbackQueryHandler(question, pattern='^question_'),
-                CallbackQueryHandler(back_to_main_menu, pattern='^back_to_main_menu$'),
                 CallbackQueryHandler(landing_click, pattern='^landing_click$'),
                 CallbackQueryHandler(category, pattern='^category_')
             ],
         },
         fallbacks=[
             CommandHandler("start", start),
-            MessageHandler(filters.Regex('^Главное меню$'), main_menu)
+            MessageHandler(filters.Regex('^Главное меню$'), main_menu),
+            CallbackQueryHandler(back_to_main_menu, pattern='^back_to_main_menu$'),
+            MessageHandler(filters.TEXT & ~filters.COMMAND, unknown_text),
         ],
     )
 
     application.add_handler(conv_handler)
-    
-    # This handler must be added last.
-    unknown_text_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, unknown_text)
-    application.add_handler(unknown_text_handler)
 
     application.run_polling()
 
