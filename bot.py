@@ -18,7 +18,8 @@ from keyboards_and_data import (
     build_main_menu,
     build_question_menu,
     build_question_keyboard,
-    load_faq_data
+    load_faq_data,
+    build_landing_button_only
 )
 
 # Enable logging
@@ -98,6 +99,17 @@ async def landing_click(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
     await query.answer()
     increment_counter()
 
+async def unknown_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Handles any unknown text message from the user."""
+    message_text = (
+        "Я не понял ваш запрос. Используйте кнопки меню для навигации.\n\n"
+        "Если не нашёл нужную информацию здесь, переходи на лендинг по кнопке🌟"
+    )
+    await update.message.reply_text(
+        message_text,
+        reply_markup=build_landing_button_only()
+    )
+
 # --- Main function ---
 
 def main() -> None:
@@ -121,10 +133,17 @@ def main() -> None:
                 CallbackQueryHandler(category, pattern='^category_')
             ],
         },
-        fallbacks=[CommandHandler("start", start)],
+        fallbacks=[
+            CommandHandler("start", start),
+            MessageHandler(filters.Regex('^Главное меню$'), main_menu)
+        ],
     )
 
     application.add_handler(conv_handler)
+    
+    # This handler must be added last.
+    unknown_text_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, unknown_text)
+    application.add_handler(unknown_text_handler)
 
     application.run_polling()
 

@@ -1,4 +1,4 @@
-import json
+фimport json
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from config import LANDING_URL
 
@@ -35,3 +35,8 @@ def build_question_keyboard(category_index: int) -> InlineKeyboardMarkup:
         [InlineKeyboardButton("🌐 Перейти на лендинг", url=LANDING_URL, callback_data="landing_click")]
     ]
     return InlineKeyboardMarkup(buttons)
+
+def build_landing_button_only() -> InlineKeyboardMarkup:
+    """Builds a keyboard with only the landing page button."""
+    button = [InlineKeyboardButton("🌟 Перейти на лендинг", url=LANDING_URL, callback_data="landing_click")]
+    return InlineKeyboardMarkup([button])
