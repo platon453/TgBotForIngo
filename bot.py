@@ -13,13 +13,12 @@ from telegram.ext import (
 from telegram.request import HTTPXRequest
 
 from config import TELEGRAM_TOKEN
-from tracking import increment_counter
 from keyboards_and_data import (
     build_main_menu,
     build_question_menu,
     build_question_keyboard,
-    load_faq_data,
-    build_fallback_keyboard
+    build_fallback_keyboard,
+    load_faq_data
 )
 
 # Enable logging
@@ -37,7 +36,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Sends a message with a welcome text and a main menu button, entering the conversation."""
     reply_keyboard = [["Главное меню"]]
     await update.message.reply_text(
-        "Привет! Я Инга — твой помощник из Ингосстраха. Расскажу про стажировки, поделюсь полезными инсайтами и покажу, почему у нас классно.",
+        "Привет! Я Инга – твой помощник из Ингосстраха. Расскажу про стажировки, поделюсь полезными инсайтами и покажу, почему у нас классно",
         reply_markup=ReplyKeyboardMarkup(
             reply_keyboard, one_time_keyboard=True, resize_keyboard=True
         ),
@@ -93,22 +92,13 @@ async def back_to_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE) 
     )
     return CATEGORY
 
-async def landing_click(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Handles the landing page click."""
-    query = update.callback_query
-    await query.answer()
-    increment_counter()
-
-async def unknown_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Handles any unknown text message from the user."""
-    message_text = (
+async def unknown_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Handles any unknown command or text from the user."""
+    text = (
         "Я не понял ваш запрос. Используйте кнопки меню для навигации.\n\n"
-        "Если не нашёл нужную информацию здесь, переходи на лендинг по кнопке🌟"
+        "Если не нашёл нужную информацию здесь, переходи на лендинг по кнопке ✨"
     )
-    await update.message.reply_text(
-        message_text,
-        reply_markup=build_fallback_keyboard()
-    )
+    await update.message.reply_text(text, reply_markup=build_fallback_keyboard())
 
 # --- Main function ---
 
@@ -121,22 +111,22 @@ def main() -> None:
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("start", start)],
         states={
-            AWAIT_MAIN_MENU: [MessageHandler(filters.Regex('^Главное меню$'), main_menu)],
+            AWAIT_MAIN_MENU: [
+                MessageHandler(filters.Regex('^Главное меню$'), main_menu),
+            ],
             CATEGORY: [
                 CallbackQueryHandler(category, pattern='^category_'),
-                CallbackQueryHandler(landing_click, pattern='^landing_click$')
+                CallbackQueryHandler(back_to_main_menu, pattern='^back_to_main_menu'),
             ],
             QUESTION: [
                 CallbackQueryHandler(question, pattern='^question_'),
-                CallbackQueryHandler(landing_click, pattern='^landing_click$'),
-                CallbackQueryHandler(category, pattern='^category_')
+                CallbackQueryHandler(back_to_main_menu, pattern='^back_to_main_menu'),
+                CallbackQueryHandler(category, pattern='^category_'),
             ],
         },
         fallbacks=[
             CommandHandler("start", start),
-            MessageHandler(filters.Regex('^Главное меню$'), main_menu),
-            CallbackQueryHandler(back_to_main_menu, pattern='^back_to_main_menu$'),
-            MessageHandler(filters.TEXT & ~filters.COMMAND, unknown_text),
+            MessageHandler(filters.TEXT & ~filters.COMMAND, unknown_command)
         ],
     )
 
